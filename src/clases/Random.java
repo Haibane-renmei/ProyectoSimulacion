@@ -30,7 +30,7 @@ public class Random {
     // Metodos
     
     public byte getRandom() {
-        NumAleatorio = (byte) ((CONSTANTE_A * NumAleatorio + CONSTANTE_B) % 100);
+        NumAleatorio = (byte)((CONSTANTE_A * NumAleatorio + CONSTANTE_B) % 100);
         return NumAleatorio;
     }
     
