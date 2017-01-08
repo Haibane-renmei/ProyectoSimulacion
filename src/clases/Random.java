@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 scami
+ * Copyright (C) 2016 scamil
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,6 +18,7 @@
 package clases;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  *
@@ -27,72 +28,81 @@ public class Random {
     
     // Variables
     
-    private byte NumAleatorio;  // Numero aleatorio generado
-    private final int CONSTANTE_A;   // Constante 1 de formula
-    private final int CONSTANTE_B;   // Constante 2 de formula
-    public final ArrayList <Integer[]> Demanda; //La demanda diaria y  
+    private static byte NumAleatorio;  // Numero aleatorio generado
+    private static int CONSTANTE_A;   // Constante 1 de formula
+    private static int CONSTANTE_B;   // Constante 2 de formula
+    public  ArrayList <Integer[]> Demanda; //La demanda diaria y  
     //su probabilidad
-public final ArrayList <Integer[]> TiempoEntrega; //Tiempo de entrega y 
+    public  ArrayList <Integer[]> TiempoEntrega; //Tiempo de entrega y 
     //su probabilidad
-public final ArrayList <Integer[]> TiempoCliente; //El tiempo de espera  
+    public  ArrayList <Integer[]> TiempoCliente; //El tiempo de espera  
     //del cliente por el artículo y su probabilidad
     
     // Inicializador
 
     public Random(int CONSTANTE_A, int CONSTANTE_B) {
-        this.NumAleatorio = 0;
-        this.CONSTANTE_A = CONSTANTE_A;
-        this.CONSTANTE_B = CONSTANTE_B;
-        this.Demanda = new ArrayList<Integer[]>();
-        this.TiempoCliente = new ArrayList<Integer[]>();
-        this.TiempoEntrega = new ArrayList<Integer[]>();
+        Random.CONSTANTE_A = CONSTANTE_A;
+        Random.CONSTANTE_B = CONSTANTE_B;
+        Demanda = new ArrayList<>();
+        TiempoCliente = new ArrayList<>();
+        TiempoEntrega = new ArrayList<>();
     }
             
     
     
     // Metodos
     
+    // Genera y devuelve un numero aleatorio
     public byte getRandom() {
         NumAleatorio = (byte)((CONSTANTE_A * NumAleatorio + CONSTANTE_B) % 100);
         return NumAleatorio;
     }
     
+    // Inserta una demanda y su posibilidad
     public void insDemanda(int a, float b) {
         Integer[] temp = new Integer[2];
         temp[0] = a;
-        if (b < 1) {
+        if (b <= 1) {
             temp[1] = Math.round(b * 100);
         } else {
-            temp[1] = Math.round(b);
+            temp[1] = (int)b;
         }
-        
+        if (temp[1] != 0 && temp[1] <= 100) {
         Demanda.add(temp);
+        }
     }
     
+    // Inserta un tiempo espera de cliente y su posibilidad
     public void insEspCliente(int a, float b) {
         Integer[] temp = new Integer[2];
         temp[0] = a;
-        if (b < 1) {
+        if (b <= 1) {
             temp[1] = Math.round(b * 100);
         } else {
-            temp[1] = Math.round(b);
+            temp[1] = (int)b;
         }
+        
+        if (temp[1] != 0 && temp[1] <= 100) {
         TiempoCliente.add(temp);
+        }
     }
     
+    // Inserta un tiempo de espera de entrega y su posibilidad
     public void insEspEntrega(int a, float b) {
         Integer[] temp = new Integer[2];
         temp[0] = a;
-        if (b < 1) {
+        if (b <= 1) {
             temp[1] = Math.round(b * 100);
         } else {
-            temp[1] = Math.round(b);
+            temp[1] = (int)b;
         }
+        if (temp[1] != 0 && temp[1] <= 100) {
         TiempoEntrega.add(temp);
+        }
     }
     
-    
-     public int getDemanda(int alt) {
+    // Devuelve una demanda de acuerdo a su probabilidad
+     public int getNumDemanda(int alt) {
         Integer[] regla;
         Integer temp;
         Integer limite;
@@ -111,58 +121,87 @@ public final ArrayList <Integer[]> TiempoCliente; //El tiempo de espera
         return regla[alt];
     }
     
-    public int getEspCliente(int alt) {
+     // Devuelve un timepo de espera de cliente de acuerdo a su probabilidad
+    public int getNumEspCliente(int alt) {
         
         Integer[] regla;
         Integer temp;
+        Integer limite;
         
         temp = 0;
-        
         regla = new Integer[100];
-        for (Integer[] object: TiempoCliente) {
-            while (temp < temp + object[1]) {
-                regla[temp++] = object[0];
-                if (temp > 99) {break;}
-            }
-        }
         
-        if (alt > 100 || alt < 0 || temp < 99) {
-            return -1;
-        }
-        
-        return regla[alt];
-
-    }
-    
-    public int getEspEntrega(int alt) {
-        
-        Integer[] regla;
-        Integer temp;
-        
-        temp = 0;
-        
-        regla = new Integer[100];
         for (Integer[] object: TiempoEntrega) {
-            while (temp < temp + object[1]) {
+            limite = temp;
+            while (temp < limite + object[1]) {
                 regla[temp++] = object[0];
                 if (temp > 99) {break;}
             }
-        }
-        
-        if (temp > 100) {
-            return -1;
         }
         
         return regla[alt];
 
     }
     
+    // Devuelve un tiempo de espera de entrega de acuerdo a su probabilidad
+    public int getNumEspEntrega(int alt) {
+        
+        Integer[] regla;
+        Integer temp;
+        Integer limite;
+        
+        temp = 0;
+        regla = new Integer[100];
+        
+        for (Integer[] object: TiempoEntrega) {
+            limite = temp;
+            while (temp < limite + object[1]) {
+                regla[temp++] = object[0];
+                if (temp > 99) {break;}
+            }
+        }
+        
+        return regla[alt];
+
+    }
+    
+    // Verifica si todas las vaiables son correctas.
+    // Cada variable de probabilidad debe sumar 100%
+    public boolean esCorrecto() {
+        Integer[] check =  new Integer[3];
+        Arrays.fill(check, 0);
+        
+        for (Integer[] object: Demanda) {
+            check[0] = check[0] + object[1];
+        }
+        
+        for (Integer[] object: TiempoEntrega) {
+            check[1] = check[1] + object[1];
+        }
+        
+        for (Integer[] object: TiempoEntrega) {
+            check[2] = check[2] + object[1];
+        }
+        
+        for (Integer object: check) {
+            if (object != 100) {
+                return false;
+            }
+        }
+        return true;
+    }
     
     
-    public void limpiar() {
-        Demanda.clear();
-        TiempoCliente.clear();
-        TiempoEntrega.clear();
+    public ArrayList<Integer[]> getDemanda() {
+        return Demanda;
+    }
+
+    public ArrayList<Integer[]> getTiempoEntrega() {
+        return TiempoEntrega;
+    }
+
+    public ArrayList<Integer[]> getTiempoCliente() {
+        return TiempoCliente;
     }
     
 }

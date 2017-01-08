@@ -22,30 +22,116 @@ import java.util.ArrayList;
  */
 public class Simulacion {
 
-public ArrayList<Dia> simulacion;
+public ArrayList<SimulacionDias> simulacion;
+public Random aleatorio;
     
-private final int InvInicial; // Inventario inicial
+private final int invInicial; // Inventario inicial
 private final int dias; // Cantidad de días a simular
-private final double CostoInvent; //Costo de inventario = $ unidad/año
-private final double CostoOrden; //Costo de ordenar = $ / orden
-private final double CostoConEspera; //Costo de faltante con espera de cliente 
-private final double CostoSinEspera; //Costo de faltante sin espera de cliente
-private final int puntoReorden;
-private final int cantidadPedido;
+private final double costoInvent; //Costo de inventario = $ unidad/año
+private final double costoOrden; //Costo de ordenar = $ / orden
+private final double costoConEspera; //Costo de faltante con espera de cliente 
+private final double costoSinEspera; //Costo de faltante sin espera de cliente
+private int puntoReordenOp; // Punto de reorden optimo de la simulacion
+private int cantidadPedidoOp; // Cantidad de pedido optimo de la simulacion
+private double costoTotalOp; // Costo total optimo de la simulacion
+private int prmin = 999999999; // Punto de reorden minimo de la simulacion
+private int prmax = 0; // Punto de reorden maximo de la simulacion
+private int qmin = 999999999; // Cantidad de pedido minimo de la simulacion
+private int qmax = 0; // Cantidad de pedido maximo de la simulacion
 
-    public Simulacion(int InvInicial, int dias, double CostoInvent, 
-            double CostoOrden, double CostoConEspera, double CostoSinEspera, 
-                int puntoReorden, int cantidadPedido) {
-        this.InvInicial = InvInicial;
-        this.dias = dias;
-        this.CostoInvent = CostoInvent;
-        this.CostoOrden = CostoOrden;
-        this.CostoConEspera = CostoConEspera;
-        this.CostoSinEspera = CostoSinEspera;
-        this.puntoReorden = puntoReorden;
-        this.cantidadPedido = cantidadPedido;
+
+
+
+    public Simulacion() {
+        this.invInicial = 50;
+        this.dias = 70;
+        this.costoInvent = 52;
+        this.costoOrden = 100;
+        this.costoConEspera = 20;
+        this.costoSinEspera = 50;
+        this.aleatorio = new Random(21, 13);
+        this.simulacion = new ArrayList<>();
+        this.costoTotalOp = 999999999;
     }
 
+    public Simulacion(int InvInicial, int dias, double CostoInvent, 
+            double CostoOrden, double CostoConEspera, double CostoSinEspera) {
+        this.invInicial = (int)InvInicial;
+        this.dias = (int)dias;
+        this.costoInvent = CostoInvent;
+        this.costoOrden = CostoOrden;
+        this.costoConEspera = CostoConEspera;
+        this.costoSinEspera = CostoSinEspera;
+        this.aleatorio = new Random(21, 13);
+        this.simulacion = new ArrayList<>();
+        this.costoTotalOp = 999999999;
+    }
+    
+    // Itera todas las combinaciones de Q y PR, y obtiene sus valores optimos
+    public void iterarDias() {
+        int i = 0;
 
+        for (Integer[] demandas: aleatorio.getDemanda()) {
+            for (Integer[] tiempo: aleatorio.getTiempoEntrega()){
+                double Q = Math.sqrt((2 * costoOrden * demandas[0] * 365) / 
+                        (costoInvent));
+                int PR = demandas[0] * tiempo[0];
+                
+                if (PR < prmin) {
+                    prmin = PR;
+                }
+                if (PR > prmax) {
+                    prmax = PR;
+                }
+                
+                if (Q < qmin) {
+                    qmin = (int)Q;
+                }
+                if (Q > qmax) {
+                    qmax = (int)Q;
+                }
+                
+                simulacion.add(new SimulacionDias(aleatorio, PR, (int)Q, 
+                        costoInvent, costoOrden, costoConEspera, costoSinEspera, 
+                        invInicial, dias));
+                this.simulacion.get(i).iterar();
+                
+                if (simulacion.get(i).costoTotal < costoTotalOp) {
+                    costoTotalOp = simulacion.get(i).costoTotal;
+                    puntoReordenOp = simulacion.get(i).puntoReorden;
+                    cantidadPedidoOp = simulacion.get(i).cantidadPedido;
+                }
+                i++;
+            }
+        }     
+    }
+
+    public int getPrmin() {
+        return prmin;
+    }
+
+    public int getPrmax() {
+        return prmax;
+    }
+
+    public int getQmin() {
+        return qmin;
+    }
+
+    public int getQmax() {
+        return qmax;
+    }
+    
+    public int getPuntoReordenOp() {
+        return puntoReordenOp;
+    }
+
+    public int getCantidadPedidoOp() {
+        return cantidadPedidoOp;
+    }
+
+    public double getCostoTotalOp() {
+        return costoTotalOp;
+    }
     
 }
