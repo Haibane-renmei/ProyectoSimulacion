@@ -243,8 +243,9 @@ public class Panel extends javax.swing.JFrame {
             }
         });
 
-        jFormattedTextField6.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField6.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         jFormattedTextField6.setText("0");
+        jFormattedTextField6.setToolTipText("");
         try {
             MaskFormatter mascara = new MaskFormatter("##.##");
             mascara.setValidCharacters("0123456789.");
@@ -934,7 +935,6 @@ public class Panel extends javax.swing.JFrame {
         );
 
         jPanel1.getAccessibleContext().setAccessibleName("Variables");
-        jPanel2.getAccessibleContext().setAccessibleName("Resultados");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -1026,7 +1026,7 @@ public class Panel extends javax.swing.JFrame {
                     //limpiarComboBox();
                     jComboBox1.setModel(tmp);
                     jPanel2.setVisible(true);
-                    jScrollPane1.setVisible(true);
+                    jScrollPane1.setVisible(false);
                     jTabbedPane1.setEnabledAt(1, true);
                     for (SimulacionDias self: obj.simulacion) {
                         jComboBox1.addItem("Q: " + String.valueOf(

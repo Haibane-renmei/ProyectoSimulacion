@@ -34,10 +34,10 @@ private final double costoSinEspera; //Costo de faltante sin espera de cliente
 private int puntoReordenOp; // Punto de reorden optimo de la simulacion
 private int cantidadPedidoOp; // Cantidad de pedido optimo de la simulacion
 private double costoTotalOp; // Costo total optimo de la simulacion
-private int prmin = 999999999; // Punto de reorden minimo de la simulacion
-private int prmax = 0; // Punto de reorden maximo de la simulacion
-private int qmin = 999999999; // Cantidad de pedido minimo de la simulacion
-private int qmax = 0; // Cantidad de pedido maximo de la simulacion
+private int prmin ; // Punto de reorden minimo de la simulacion
+private int prmax; // Punto de reorden maximo de la simulacion
+private int qmin; // Cantidad de pedido minimo de la simulacion
+private int qmax; // Cantidad de pedido maximo de la simulacion
 
 
 
@@ -49,7 +49,7 @@ private int qmax = 0; // Cantidad de pedido maximo de la simulacion
         this.costoOrden = 100;
         this.costoConEspera = 20;
         this.costoSinEspera = 50;
-        this.aleatorio = new Random(21, 13);
+        this.aleatorio = new Random(13, 31);
         this.simulacion = new ArrayList<>();
         this.costoTotalOp = 999999999;
     }
@@ -62,9 +62,13 @@ private int qmax = 0; // Cantidad de pedido maximo de la simulacion
         this.costoOrden = CostoOrden;
         this.costoConEspera = CostoConEspera;
         this.costoSinEspera = CostoSinEspera;
-        this.aleatorio = new Random(21, 13);
+        this.aleatorio = new Random(13, 31);
         this.simulacion = new ArrayList<>();
         this.costoTotalOp = 999999999;
+        this.prmin = 999999999;
+        this.qmin = 999999999;
+        this.prmax = 0;
+        this.qmax = 0;
     }
     
     // Itera todas las combinaciones de Q y PR, y obtiene sus valores optimos
