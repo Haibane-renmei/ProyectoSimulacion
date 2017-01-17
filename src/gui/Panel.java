@@ -20,15 +20,33 @@ package gui;
 import clases.SimulacionDias;
 import clases.Simulacion;
 import java.awt.Component;
+import java.awt.Font;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.util.Arrays;
+import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JFormattedTextField;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.text.MaskFormatter;
 
 public class Panel extends javax.swing.JFrame {
     
-   static Simulacion obj;
+   static Simulacion obj = new Simulacion();
+   DefaultListModel modelDemanda = new DefaultListModel();
+   DefaultListModel modelTiCliente = new DefaultListModel();
+   DefaultListModel modelTiEntrega = new DefaultListModel();
     
     /** Creates new form Antenna */
     public Panel() {
@@ -64,52 +82,36 @@ public class Panel extends javax.swing.JFrame {
         jFormattedTextField6 = new javax.swing.JFormattedTextField();
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel5 = new javax.swing.JPanel();
+        jPanel6 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jFormattedTextField13 = new javax.swing.JFormattedTextField();
         jFormattedTextField14 = new javax.swing.JFormattedTextField();
+        jFormattedTextField13 = new javax.swing.JFormattedTextField();
+        jButton10 = new javax.swing.JButton();
+        jButton9 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jList1 = new javax.swing.JList<>();
+        jPanel7 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
         jFormattedTextField15 = new javax.swing.JFormattedTextField();
         jFormattedTextField16 = new javax.swing.JFormattedTextField();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jList2 = new javax.swing.JList<>();
+        jLabel5 = new javax.swing.JLabel();
+        jPanel8 = new javax.swing.JPanel();
+        jLabel27 = new javax.swing.JLabel();
+        jLabel28 = new javax.swing.JLabel();
         jFormattedTextField17 = new javax.swing.JFormattedTextField();
         jFormattedTextField18 = new javax.swing.JFormattedTextField();
-        jFormattedTextField19 = new javax.swing.JFormattedTextField();
-        jFormattedTextField20 = new javax.swing.JFormattedTextField();
-        jFormattedTextField21 = new javax.swing.JFormattedTextField();
-        jFormattedTextField22 = new javax.swing.JFormattedTextField();
-        jFormattedTextField23 = new javax.swing.JFormattedTextField();
-        jFormattedTextField24 = new javax.swing.JFormattedTextField();
-        jFormattedTextField25 = new javax.swing.JFormattedTextField();
-        jFormattedTextField26 = new javax.swing.JFormattedTextField();
-        jFormattedTextField27 = new javax.swing.JFormattedTextField();
-        jFormattedTextField28 = new javax.swing.JFormattedTextField();
-        jFormattedTextField29 = new javax.swing.JFormattedTextField();
-        jFormattedTextField30 = new javax.swing.JFormattedTextField();
-        jFormattedTextField31 = new javax.swing.JFormattedTextField();
-        jFormattedTextField32 = new javax.swing.JFormattedTextField();
-        jFormattedTextField33 = new javax.swing.JFormattedTextField();
-        jFormattedTextField34 = new javax.swing.JFormattedTextField();
-        jFormattedTextField35 = new javax.swing.JFormattedTextField();
-        jFormattedTextField36 = new javax.swing.JFormattedTextField();
-        jFormattedTextField37 = new javax.swing.JFormattedTextField();
-        jFormattedTextField38 = new javax.swing.JFormattedTextField();
-        jFormattedTextField39 = new javax.swing.JFormattedTextField();
-        jFormattedTextField40 = new javax.swing.JFormattedTextField();
-        jFormattedTextField41 = new javax.swing.JFormattedTextField();
-        jFormattedTextField42 = new javax.swing.JFormattedTextField();
-        jFormattedTextField43 = new javax.swing.JFormattedTextField();
-        jFormattedTextField44 = new javax.swing.JFormattedTextField();
-        jFormattedTextField45 = new javax.swing.JFormattedTextField();
-        jFormattedTextField46 = new javax.swing.JFormattedTextField();
-        jFormattedTextField47 = new javax.swing.JFormattedTextField();
-        jFormattedTextField48 = new javax.swing.JFormattedTextField();
-        jFormattedTextField49 = new javax.swing.JFormattedTextField();
-        jFormattedTextField50 = new javax.swing.JFormattedTextField();
-        jFormattedTextField51 = new javax.swing.JFormattedTextField();
-        jFormattedTextField52 = new javax.swing.JFormattedTextField();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        jList3 = new javax.swing.JList<>();
+        jLabel7 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
         jLabel17 = new javax.swing.JLabel();
         jLabel19 = new javax.swing.JLabel();
@@ -125,19 +127,23 @@ public class Panel extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel25 = new javax.swing.JLabel();
         jFormattedTextField57 = new javax.swing.JFormattedTextField();
+        jLabel18 = new javax.swing.JLabel();
+        jFormattedTextField54 = new javax.swing.JFormattedTextField();
+        jLabel22 = new javax.swing.JLabel();
+        jFormattedTextField53 = new javax.swing.JFormattedTextField();
+        jLabel23 = new javax.swing.JLabel();
+        jFormattedTextField55 = new javax.swing.JFormattedTextField();
+        jLabel24 = new javax.swing.JLabel();
+        jFormattedTextField56 = new javax.swing.JFormattedTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel33 = new javax.swing.JLabel();
         jButton4 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
+        jCheckBox1 = new javax.swing.JCheckBox();
+        jCheckBox2 = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel22 = new javax.swing.JLabel();
-        jLabel23 = new javax.swing.JLabel();
-        jLabel24 = new javax.swing.JLabel();
-        jFormattedTextField54 = new javax.swing.JFormattedTextField();
-        jFormattedTextField53 = new javax.swing.JFormattedTextField();
-        jFormattedTextField55 = new javax.swing.JFormattedTextField();
-        jFormattedTextField56 = new javax.swing.JFormattedTextField();
-        jButton5 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
 
@@ -170,7 +176,7 @@ public class Panel extends javax.swing.JFrame {
 
         jLabel14.setText("Inventario inicial");
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         jFormattedTextField1.setText("0");
         jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -178,7 +184,7 @@ public class Panel extends javax.swing.JFrame {
             }
         });
 
-        jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField2.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jFormattedTextField2.setText("0");
         jFormattedTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,7 +211,7 @@ public class Panel extends javax.swing.JFrame {
             //TextField.setValue(new Float("0"));
         } catch (Exception e) {
         }
-        jFormattedTextField3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField3.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jFormattedTextField3.setText("0");
         jFormattedTextField3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -213,7 +219,7 @@ public class Panel extends javax.swing.JFrame {
             }
         });
 
-        jFormattedTextField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField4.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jFormattedTextField4.setText("0");
         try {
             MaskFormatter mascara = new MaskFormatter("##.##");
@@ -228,7 +234,7 @@ public class Panel extends javax.swing.JFrame {
             }
         });
 
-        jFormattedTextField5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter()));
+        jFormattedTextField5.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         jFormattedTextField5.setText("0");
         try {
             MaskFormatter mascara = new MaskFormatter("##.##");
@@ -243,7 +249,7 @@ public class Panel extends javax.swing.JFrame {
             }
         });
 
-        jFormattedTextField6.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        jFormattedTextField6.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
         jFormattedTextField6.setText("0");
         jFormattedTextField6.setToolTipText("");
         try {
@@ -261,325 +267,342 @@ public class Panel extends javax.swing.JFrame {
 
         jTabbedPane1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
 
+        jPanel6.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
         jLabel3.setText("Demanda Diaria");
 
-        jLabel4.setText("Probabilidad");
+        jLabel4.setText("Numero");
 
-        jLabel5.setText("Tiempo de entrega");
+        jLabel6.setText("Posibilidad");
 
-        jLabel6.setText("Probabilidad");
-
-        jLabel7.setText("Tiempo de espera cliente");
-
-        jLabel8.setText("Probabilidad");
-
-        jFormattedTextField13.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField13.setText("0");
-        jFormattedTextField13.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField13ActionPerformed(evt);
-            }
-        });
-
-        jFormattedTextField14.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
+        jFormattedTextField14.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jFormattedTextField14.setText("0");
+        jFormattedTextField14.setToolTipText("");
+        try {
+            MaskFormatter mascara = new MaskFormatter("##.##");
+            mascara.setValidCharacters("0123456789.");
+            JFormattedTextField textField6 = new JFormattedTextField(mascara);
+            //TextField.setValue(new Float("0"));
+        } catch (Exception e) {
+        }
         jFormattedTextField14.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jFormattedTextField14ActionPerformed(evt);
             }
         });
 
-        jFormattedTextField15.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField15.setText("0");
-
-        jFormattedTextField16.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField16.setText("0");
-
-        jFormattedTextField17.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField17.setText("0");
-
-        jFormattedTextField18.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField18.setText("0");
-
-        jFormattedTextField19.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField19.setText("0");
-
-        jFormattedTextField20.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField20.setText("0");
-
-        jFormattedTextField21.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField21.setText("0");
-
-        jFormattedTextField22.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField22.setText("0");
-
-        jFormattedTextField23.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField23.setText("0");
-        jFormattedTextField23.addActionListener(new java.awt.event.ActionListener() {
+        jFormattedTextField13.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        jFormattedTextField13.setText("0");
+        jFormattedTextField13.setToolTipText("");
+        try {
+            MaskFormatter mascara = new MaskFormatter("##.##");
+            mascara.setValidCharacters("0123456789.");
+            JFormattedTextField textField6 = new JFormattedTextField(mascara);
+            //TextField.setValue(new Float("0"));
+        } catch (Exception e) {
+        }
+        jFormattedTextField13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField23ActionPerformed(evt);
+                jFormattedTextField13ActionPerformed(evt);
             }
         });
 
-        jFormattedTextField24.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField24.setText("0");
+        jButton10.setText("+");
+        jButton10.setToolTipText("");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
 
-        jFormattedTextField25.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField25.setText("0");
+        jButton9.setText("-");
+        jButton9.setToolTipText("");
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
 
-        jFormattedTextField26.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField26.setText("0");
+        jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane2.setViewportView(jList1);
 
-        jFormattedTextField27.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField27.setText("0");
+        org.jdesktop.layout.GroupLayout jPanel6Layout = new org.jdesktop.layout.GroupLayout(jPanel6);
+        jPanel6.setLayout(jPanel6Layout);
+        jPanel6Layout.setHorizontalGroup(
+            jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jLabel3)
+                    .add(jPanel6Layout.createSequentialGroup()
+                        .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jLabel4)
+                            .add(jLabel6))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                            .add(jButton10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(jButton9, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .add(jFormattedTextField14)
+                            .add(jFormattedTextField13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 105, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
+        );
+        jPanel6Layout.setVerticalGroup(
+            jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel6Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel3)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel6Layout.createSequentialGroup()
+                        .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jFormattedTextField13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel4))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel6Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jFormattedTextField14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel6))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jButton10)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jButton9))
+                    .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 113, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-        jFormattedTextField28.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField28.setText("0");
+        jPanel7.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jFormattedTextField29.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField29.setText("0");
+        jLabel9.setText("Numero");
 
-        jFormattedTextField30.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField30.setText("0");
+        jLabel10.setText("Posibilidad");
 
-        jFormattedTextField31.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField31.setText("0");
+        jFormattedTextField15.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        jFormattedTextField15.setText("0");
+        jFormattedTextField15.setToolTipText("");
+        try {
+            MaskFormatter mascara = new MaskFormatter("##.##");
+            mascara.setValidCharacters("0123456789.");
+            JFormattedTextField textField6 = new JFormattedTextField(mascara);
+            //TextField.setValue(new Float("0"));
+        } catch (Exception e) {
+        }
+        jFormattedTextField15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField15ActionPerformed(evt);
+            }
+        });
 
-        jFormattedTextField32.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField32.setText("0");
+        jFormattedTextField16.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        jFormattedTextField16.setText("0");
+        jFormattedTextField16.setToolTipText("");
+        try {
+            MaskFormatter mascara = new MaskFormatter("##.##");
+            mascara.setValidCharacters("0123456789.");
+            JFormattedTextField textField6 = new JFormattedTextField(mascara);
+            //TextField.setValue(new Float("0"));
+        } catch (Exception e) {
+        }
+        jFormattedTextField16.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField16ActionPerformed(evt);
+            }
+        });
 
-        jFormattedTextField33.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField33.setText("0");
+        jButton11.setText("+");
+        jButton11.setToolTipText("");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
 
-        jFormattedTextField34.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField34.setText("0");
+        jButton12.setText("-");
+        jButton12.setToolTipText("");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
 
-        jFormattedTextField35.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField35.setText("0");
+        jList2.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane3.setViewportView(jList2);
 
-        jFormattedTextField36.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField36.setText("0");
+        jLabel5.setText("Tiempo de entrega");
 
-        jFormattedTextField37.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField37.setText("0");
+        org.jdesktop.layout.GroupLayout jPanel7Layout = new org.jdesktop.layout.GroupLayout(jPanel7);
+        jPanel7.setLayout(jPanel7Layout);
+        jPanel7Layout.setHorizontalGroup(
+            jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel5)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel7Layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jLabel9)
+                    .add(jLabel10))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                    .add(jButton11, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jButton12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jFormattedTextField15)
+                    .add(jFormattedTextField16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 105, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(235, 235, 235))
+        );
+        jPanel7Layout.setVerticalGroup(
+            jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel7Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel5)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel7Layout.createSequentialGroup()
+                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jFormattedTextField16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel9))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel7Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jFormattedTextField15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel10))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jButton11)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jButton12))
+                    .add(jScrollPane3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 118, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
 
-        jFormattedTextField38.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField38.setText("0");
+        jPanel8.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        jFormattedTextField39.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField39.setText("0");
+        jLabel27.setText("Numero");
 
-        jFormattedTextField40.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField40.setText("0");
+        jLabel28.setText("Posibilidad");
 
-        jFormattedTextField41.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField41.setText("0");
+        jFormattedTextField17.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+        jFormattedTextField17.setText("0");
+        jFormattedTextField17.setToolTipText("");
+        try {
+            MaskFormatter mascara = new MaskFormatter("##.##");
+            mascara.setValidCharacters("0123456789.");
+            JFormattedTextField textField6 = new JFormattedTextField(mascara);
+            //TextField.setValue(new Float("0"));
+        } catch (Exception e) {
+        }
+        jFormattedTextField17.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField17ActionPerformed(evt);
+            }
+        });
 
-        jFormattedTextField42.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField42.setText("0");
+        jFormattedTextField18.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#"))));
+        jFormattedTextField18.setText("0");
+        jFormattedTextField18.setToolTipText("");
+        try {
+            MaskFormatter mascara = new MaskFormatter("##.##");
+            mascara.setValidCharacters("0123456789.");
+            JFormattedTextField textField6 = new JFormattedTextField(mascara);
+            //TextField.setValue(new Float("0"));
+        } catch (Exception e) {
+        }
+        jFormattedTextField18.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jFormattedTextField18ActionPerformed(evt);
+            }
+        });
 
-        jFormattedTextField43.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField43.setText("0");
+        jButton13.setText("+");
+        jButton13.setToolTipText("");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
-        jFormattedTextField44.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField44.setText("0");
+        jButton14.setText("-");
+        jButton14.setToolTipText("");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
-        jFormattedTextField45.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField45.setText("0");
+        jList3.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane4.setViewportView(jList3);
 
-        jFormattedTextField46.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField46.setText("0");
+        jLabel7.setText("Tiempo de espera cliente");
 
-        jFormattedTextField47.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField47.setText("0");
-
-        jFormattedTextField48.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField48.setText("0");
-
-        jFormattedTextField49.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField49.setText("0");
-
-        jFormattedTextField50.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField50.setText("0");
-
-        jFormattedTextField51.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
-        jFormattedTextField51.setText("0");
-
-        jFormattedTextField52.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-        jFormattedTextField52.setText("0");
+        org.jdesktop.layout.GroupLayout jPanel8Layout = new org.jdesktop.layout.GroupLayout(jPanel8);
+        jPanel8.setLayout(jPanel8Layout);
+        jPanel8Layout.setHorizontalGroup(
+            jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel7)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel8Layout.createSequentialGroup()
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jLabel27)
+                    .add(jLabel28))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
+                    .add(jButton13, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jButton14, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jFormattedTextField17)
+                    .add(jFormattedTextField18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 105, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(235, 235, 235))
+        );
+        jPanel8Layout.setVerticalGroup(
+            jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+            .add(jPanel8Layout.createSequentialGroup()
+                .addContainerGap()
+                .add(jLabel7)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(jPanel8Layout.createSequentialGroup()
+                        .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jFormattedTextField18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel27))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel8Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jFormattedTextField17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel28))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(jButton13)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jButton14))
+                    .add(jScrollPane4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 118, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(25, Short.MAX_VALUE))
+        );
 
         org.jdesktop.layout.GroupLayout jPanel5Layout = new org.jdesktop.layout.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel5Layout.createSequentialGroup()
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jLabel5)
-                    .add(jPanel5Layout.createSequentialGroup()
-                        .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel3)
-                            .add(jLabel4)
-                            .add(jLabel6)
-                            .add(jLabel7)
-                            .add(jLabel8))
-                        .add(12, 12, 12)
-                        .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel5Layout.createSequentialGroup()
-                                .add(jFormattedTextField43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField47, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(jPanel5Layout.createSequentialGroup()
-                                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                                    .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                        .add(jPanel5Layout.createSequentialGroup()
-                                            .add(jFormattedTextField35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                            .add(jFormattedTextField38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                            .add(jFormattedTextField39, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                            .add(jFormattedTextField42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                                        .add(jPanel5Layout.createSequentialGroup()
-                                            .add(jFormattedTextField36, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                            .add(jFormattedTextField37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                            .add(jFormattedTextField40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                            .add(jFormattedTextField41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                                    .add(jPanel5Layout.createSequentialGroup()
-                                        .add(jFormattedTextField44, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(jFormattedTextField45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(jFormattedTextField48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                        .add(jFormattedTextField49, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(jPanel5Layout.createSequentialGroup()
-                                .add(jFormattedTextField24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(5, 5, 5)
-                                .add(jFormattedTextField25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField27, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                            .add(jPanel5Layout.createSequentialGroup()
-                                .add(jFormattedTextField13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField19, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField22, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                                .add(jFormattedTextField23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
-                .add(62, 62, 62))
+                .add(jPanel6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 245, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jPanel8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 241, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel3)
-                    .add(jFormattedTextField13, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField14, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField15, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField16, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField17, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField18, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField19, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField20, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField21, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField22, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField23, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel4)
-                    .add(jFormattedTextField24, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField25, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField26, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField27, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField28, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField29, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField30, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField31, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField32, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField33, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jFormattedTextField34, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
                 .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel5Layout.createSequentialGroup()
-                        .add(jLabel5)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jLabel6))
-                    .add(jPanel5Layout.createSequentialGroup()
-                        .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jFormattedTextField36, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jFormattedTextField37, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jFormattedTextField40, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jFormattedTextField41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jFormattedTextField35, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jFormattedTextField38, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jFormattedTextField39, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jFormattedTextField42, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .add(19, 19, 19)
-                .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel5Layout.createSequentialGroup()
-                        .add(jLabel7)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jLabel8))
-                    .add(jPanel5Layout.createSequentialGroup()
-                        .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jFormattedTextField44, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jFormattedTextField45, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jFormattedTextField48, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jFormattedTextField49, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jFormattedTextField51, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel5Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jFormattedTextField43, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jFormattedTextField46, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jFormattedTextField47, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jFormattedTextField50, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jFormattedTextField52, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(jPanel8, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel7, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .add(jPanel6, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Probabilidades", jPanel5);
@@ -622,6 +645,34 @@ public class Panel extends javax.swing.JFrame {
         jFormattedTextField57.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
         jFormattedTextField57.setText("0");
 
+        jLabel18.setText("Costo de orden");
+
+        jFormattedTextField54.setEditable(false);
+        jFormattedTextField54.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+
+        jLabel22.setText("Costo de inventario");
+
+        jFormattedTextField53.setEditable(false);
+        jFormattedTextField53.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+
+        jLabel23.setText("Costo Faltante");
+
+        jFormattedTextField55.setEditable(false);
+        jFormattedTextField55.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+
+        jLabel24.setText("Costo Total");
+
+        jFormattedTextField56.setEditable(false);
+        jFormattedTextField56.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
+
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
+
+        jLabel33.setText("Combinatorias");
+
         org.jdesktop.layout.GroupLayout jPanel4Layout = new org.jdesktop.layout.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
@@ -634,16 +685,16 @@ public class Panel extends javax.swing.JFrame {
                             .add(jLabel19)
                             .add(jLabel17))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jFormattedTextField10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jFormattedTextField9))
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jFormattedTextField10, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 93, Short.MAX_VALUE)
+                            .add(jFormattedTextField9))
                         .add(18, 18, 18)
                         .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jLabel21)
                             .add(jLabel20))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                            .add(jFormattedTextField12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
+                        .add(10, 10, 10)
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                            .add(jFormattedTextField12, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 80, Short.MAX_VALUE)
                             .add(jFormattedTextField11)))
                     .add(jPanel4Layout.createSequentialGroup()
                         .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -654,43 +705,90 @@ public class Panel extends javax.swing.JFrame {
                         .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jFormattedTextField57, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(jFormattedTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jFormattedTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(271, Short.MAX_VALUE))
+                            .add(jFormattedTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 196, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .add(64, 64, 64)
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                            .add(jPanel4Layout.createSequentialGroup()
+                                .add(jLabel22)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jFormattedTextField53, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
+                                .add(jPanel4Layout.createSequentialGroup()
+                                    .add(39, 39, 39)
+                                    .add(jLabel24)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                    .add(jFormattedTextField56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(jPanel4Layout.createSequentialGroup()
+                                    .add(23, 23, 23)
+                                    .add(jLabel23)
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                    .add(jFormattedTextField55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .add(jPanel4Layout.createSequentialGroup()
+                                    .add(20, 20, 20)
+                                    .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(jLabel18)
+                                        .add(jLabel33))
+                                    .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                    .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .add(jFormattedTextField54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))))
+                .addContainerGap(165, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                    .add(jPanel4Layout.createSequentialGroup()
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jFormattedTextField54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel18))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jFormattedTextField53, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel22))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel23)
+                            .add(jFormattedTextField55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel24)
+                            .add(jFormattedTextField56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
                     .add(jPanel4Layout.createSequentialGroup()
                         .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jLabel20)
-                            .add(jFormattedTextField12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jPanel4Layout.createSequentialGroup()
+                                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jLabel20)
+                                    .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                        .add(jFormattedTextField12, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .add(jLabel33)))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                    .add(jLabel21)
+                                    .add(jFormattedTextField11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                            .add(jPanel4Layout.createSequentialGroup()
+                                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                    .add(jLabel17)
+                                    .add(jFormattedTextField9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                                    .add(jLabel19)
+                                    .add(jFormattedTextField10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                        .add(32, 32, 32)
+                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(jLabel15)
+                            .add(jFormattedTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel21)
-                            .add(jFormattedTextField11, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                    .add(jPanel4Layout.createSequentialGroup()
-                        .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel17)
-                            .add(jFormattedTextField9, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jFormattedTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(jLabel16))
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jLabel19)
-                            .add(jFormattedTextField10, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                .add(26, 26, 26)
-                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel15)
-                    .add(jFormattedTextField7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jFormattedTextField8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jLabel16))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(jPanel4Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jLabel25)
-                    .add(jFormattedTextField57, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(42, Short.MAX_VALUE))
+                            .add(jLabel25)
+                            .add(jFormattedTextField57, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Resultados", jPanel4);
@@ -709,26 +807,47 @@ public class Panel extends javax.swing.JFrame {
             }
         });
 
+        jButton7.setText("Cargar");
+        jButton7.setToolTipText("");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+
+        jButton8.setText("Guardar");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+
+        jCheckBox1.setText("jCheckBox1");
+
+        jCheckBox2.setText("Mostrar Tabla");
+        jCheckBox2.setToolTipText("");
+
         org.jdesktop.layout.GroupLayout jPanel1Layout = new org.jdesktop.layout.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
                     .add(jPanel1Layout.createSequentialGroup()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .add(jLabel1)
-                                .add(63, 63, 63))
                             .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                                     .add(jLabel12)
                                     .add(jLabel14)
                                     .add(jLabel11)
-                                    .add(jLabel2)
+                                    .add(jLabel2))
+                                .add(32, 32, 32))
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(jLabel1)
                                     .add(jLabel13))
-                                .add(32, 32, 32)))
+                                .add(63, 63, 63)))
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(jFormattedTextField1)
                             .add(jFormattedTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
@@ -737,13 +856,25 @@ public class Panel extends javax.swing.JFrame {
                             .add(jFormattedTextField5)
                             .add(jFormattedTextField6)))
                     .add(jPanel1Layout.createSequentialGroup()
-                        .add(12, 12, 12)
-                        .add(jButton6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 125, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                        .add(jButton4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 133, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .add(18, 18, 18)
-                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 699, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(jCheckBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(18, 18, 18)
+                        .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(jButton6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(18, 18, 18)
+                                .add(jButton4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                            .add(jPanel1Layout.createSequentialGroup()
+                                .add(jButton7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                .add(18, 18, 18)
+                                .add(jButton8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 785, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel1Layout.createSequentialGroup()
+                    .add(0, 0, Short.MAX_VALUE)
+                    .add(jCheckBox1)
+                    .add(0, 0, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -772,48 +903,25 @@ public class Panel extends javax.swing.JFrame {
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(jLabel13)
                     .add(jFormattedTextField6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                .add(18, 18, 18)
+                .add(8, 8, 8)
                 .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jButton6)
                     .add(jButton4)
-                    .add(jButton6))
+                    .add(jCheckBox2))
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(jButton7)
+                    .add(jButton8))
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .add(jTabbedPane1)
+            .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(jPanel1Layout.createSequentialGroup()
+                    .add(0, 0, Short.MAX_VALUE)
+                    .add(jCheckBox1)
+                    .add(0, 0, Short.MAX_VALUE)))
         );
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Resultados"));
-
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
-            }
-        });
-
-        jLabel18.setText("Costo de orden");
-
-        jLabel22.setText("Costo de inventario");
-
-        jLabel23.setText("Costo Faltante");
-
-        jLabel24.setText("Costo Total");
-
-        jFormattedTextField54.setEditable(false);
-        jFormattedTextField54.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-
-        jFormattedTextField53.setEditable(false);
-        jFormattedTextField53.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-
-        jFormattedTextField55.setEditable(false);
-        jFormattedTextField55.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-
-        jFormattedTextField56.setEditable(false);
-        jFormattedTextField56.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0.00"))));
-
-        jButton5.setText("Mostrar Tabla");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Tabla de eventos"));
 
         jTable1.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -844,20 +952,6 @@ public class Panel extends javax.swing.JFrame {
         jTable1.getTableHeader().setResizingAllowed(false);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(0).setResizable(false);
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
-            jTable1.getColumnModel().getColumn(2).setResizable(false);
-            jTable1.getColumnModel().getColumn(3).setResizable(false);
-            jTable1.getColumnModel().getColumn(4).setResizable(false);
-            jTable1.getColumnModel().getColumn(5).setResizable(false);
-            jTable1.getColumnModel().getColumn(6).setResizable(false);
-            jTable1.getColumnModel().getColumn(7).setResizable(false);
-            jTable1.getColumnModel().getColumn(8).setResizable(false);
-            jTable1.getColumnModel().getColumn(9).setResizable(false);
-            jTable1.getColumnModel().getColumn(10).setResizable(false);
-            jTable1.getColumnModel().getColumn(11).setResizable(false);
-        }
 
         org.jdesktop.layout.GroupLayout jPanel2Layout = new org.jdesktop.layout.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -865,51 +959,13 @@ public class Panel extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 1007, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(46, 46, 46)
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(jLabel18)
-                            .add(jLabel22))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING, false)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jFormattedTextField53)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, jFormattedTextField54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .add(34, 34, 34)
-                        .add(jLabel23)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jFormattedTextField55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(40, 40, 40)
-                        .add(jLabel24)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jFormattedTextField56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 155, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jButton5, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 133, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 1069, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel2Layout.createSequentialGroup()
-                .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jFormattedTextField54, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel18)
-                            .add(jLabel23)
-                            .add(jFormattedTextField55, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel24)
-                            .add(jFormattedTextField56, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                        .add(jPanel2Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(jFormattedTextField53, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jLabel22)
-                            .add(jButton5)))
-                    .add(jPanel2Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(jComboBox1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .addContainerGap()
                 .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 394, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -920,9 +976,9 @@ public class Panel extends javax.swing.JFrame {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, jPanel2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .add(jPanel2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -942,77 +998,8 @@ public class Panel extends javax.swing.JFrame {
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
 
             DefaultComboBoxModel<String> tmp = new DefaultComboBoxModel<>();
-            obj = new Simulacion(Integer.valueOf(
-                    jFormattedTextField5.getText()), 
-                Integer.valueOf(jFormattedTextField6.getText()),
-                        Float.valueOf(jFormattedTextField1.getText()),
-                Float.valueOf(jFormattedTextField2.getText()),
-                    Float.valueOf(jFormattedTextField3.getText()),
-                        Float.valueOf(jFormattedTextField4.getText()));
-       
-            obj.aleatorio.insDemanda(
-                Integer.valueOf(jFormattedTextField13.getText()), 
-                    Float.valueOf(jFormattedTextField24.getText()));
-            obj.aleatorio.insDemanda(
-                Integer.valueOf(jFormattedTextField14.getText()), 
-                    Float.valueOf(jFormattedTextField25.getText()));
-            obj.aleatorio.insDemanda(
-                Integer.valueOf(jFormattedTextField15.getText()), 
-                    Float.valueOf(jFormattedTextField26.getText()));
-            obj.aleatorio.insDemanda(
-                Integer.valueOf(jFormattedTextField16.getText()), 
-                     Float.valueOf(jFormattedTextField27.getText()));
-            obj.aleatorio.insDemanda(
-                Integer.valueOf(jFormattedTextField17.getText()), 
-                    Float.valueOf(jFormattedTextField28.getText()));
-            obj.aleatorio.insDemanda(
-                Integer.valueOf(jFormattedTextField18.getText()), 
-                    Float.valueOf(jFormattedTextField29.getText()));
-            obj.aleatorio.insDemanda(
-                Integer.valueOf(jFormattedTextField19.getText()), 
-                    Float.valueOf(jFormattedTextField30.getText()));
-            obj.aleatorio.insDemanda(
-                Integer.valueOf(jFormattedTextField20.getText()), 
-                    Float.valueOf(jFormattedTextField31.getText()));
-            obj.aleatorio.insDemanda(
-                Integer.valueOf(jFormattedTextField21.getText()), 
-                    Float.valueOf(jFormattedTextField32.getText()));
-            obj.aleatorio.insDemanda(
-                Integer.valueOf(jFormattedTextField22.getText()),
-                    Float.valueOf(jFormattedTextField33.getText()));
-            obj.aleatorio.insDemanda(
-                Integer.valueOf(jFormattedTextField23.getText()), 
-                    Float.valueOf(jFormattedTextField34.getText()));
-            obj.aleatorio.insEspEntrega(
-                Integer.valueOf(jFormattedTextField37.getText()), 
-                    Float.valueOf(jFormattedTextField35.getText()));
-            obj.aleatorio.insEspEntrega(
-                Integer.valueOf(jFormattedTextField36.getText()), 
-                    Float.valueOf(jFormattedTextField38.getText()));
-            obj.aleatorio.insEspEntrega(
-                Integer.valueOf(jFormattedTextField40.getText()),
-                    Float.valueOf(jFormattedTextField39.getText()));
-            obj.aleatorio.insEspEntrega(
-                Integer.valueOf(jFormattedTextField41.getText()),
-                    Float.valueOf(jFormattedTextField42.getText()));
-            obj.aleatorio.insEspCliente(
-                Integer.valueOf(jFormattedTextField44.getText()),
-                    Float.valueOf(jFormattedTextField43.getText()));
-            obj.aleatorio.insEspCliente(
-                Integer.valueOf(jFormattedTextField45.getText()), 
-                    Float.valueOf(jFormattedTextField46.getText()));
-            obj.aleatorio.insEspCliente(
-                Integer.valueOf(jFormattedTextField48.getText()), 
-                    Float.valueOf(jFormattedTextField47.getText()));
-            obj.aleatorio.insEspCliente(
-                Integer.valueOf(jFormattedTextField49.getText()), 
-                    Float.valueOf(jFormattedTextField50.getText()));
-            obj.aleatorio.insEspCliente(
-                Integer.valueOf(jFormattedTextField51.getText()),
-                    Float.valueOf(jFormattedTextField52.getText()));
-            
-        
-            
+            byte result = obj.aleatorio.esCorrecto();
+
             if ((Float.valueOf(jFormattedTextField1.getText()) > 0) && 
                     (Float.valueOf(jFormattedTextField2.getText()) > 0) &&
                         (Float.valueOf(jFormattedTextField3.getText()) > 0) &&
@@ -1020,43 +1007,82 @@ public class Panel extends javax.swing.JFrame {
                     (Float.valueOf(jFormattedTextField5.getText()) > 0) &&
                         (Float.valueOf(jFormattedTextField6.getText()) > 0)
             ) {
-                if (obj.aleatorio.esCorrecto()){
-                    obj.iterarDias();
-                    
-                    //limpiarComboBox();
-                    jComboBox1.setModel(tmp);
-                    jPanel2.setVisible(true);
-                    jScrollPane1.setVisible(false);
-                    jTabbedPane1.setEnabledAt(1, true);
-                    for (SimulacionDias self: obj.simulacion) {
-                        jComboBox1.addItem("Q: " + String.valueOf(
-                                self.cantidadPedido) +
-                                    " - PR:" +  String.valueOf(
-                                            self.puntoReorden));
-                       
-                    }
-                    jComboBox1.setSelectedIndex(0);
-                    jTabbedPane1.setSelectedIndex(1);
-                    
-                    jFormattedTextField9.setText(String.valueOf(
-                            obj.getQmin()));
-                    jFormattedTextField10.setText(String.valueOf(
-                            obj.getQmax()));
-                    jFormattedTextField12.setText(String.valueOf(
-                            obj.getPrmin()));
-                    jFormattedTextField11.setText(String.valueOf(
-                            obj.getPrmax()));
-                    jFormattedTextField7.setText(String.valueOf(
-                            obj.getCantidadPedidoOp()));
-                    jFormattedTextField8.setText(String.valueOf(
-                            obj.getPuntoReordenOp()));
-                    jFormattedTextField57.setText(String.valueOf(
-                            obj.getCostoTotalOp()));
-                    genTable();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Las probabilidades "
-                            + "puestas son incorrectas.", "Error de "
+                switch (result) {
+                    case 0:
+                        
+                        obj.setDias(
+                            Math.abs(Integer.valueOf(
+                                    jFormattedTextField6.getText())));
+                        obj.setInvInicial(
+                            Math.abs(Integer.valueOf(
+                                    jFormattedTextField5.getText())));
+                        obj.setCostoOrden(
+                            Math.abs(Double.valueOf(
+                                    jFormattedTextField2.getText())));
+                        obj.setCostoInvent(
+                            Math.abs(Double.valueOf(
+                                    jFormattedTextField1.getText())));
+                        obj.setCostoConEspera(
+                            Math.abs(Double.valueOf(
+                                    jFormattedTextField3.getText())));
+                        obj.setCostoSinEspera(
+                            Math.abs(Double.valueOf(
+                                    jFormattedTextField4.getText())));
+                        
+                        obj.iterarDias();
+                        
+                        if (jCheckBox2.isSelected()) {
+                            jPanel2.setVisible(true);
+                            jScrollPane1.setVisible(true);
+                        } else {
+                            jPanel2.setVisible(false);
+                            jScrollPane1.setVisible(false);
+                        }
+                        //limpiarComboBox();
+                        jComboBox1.setModel(tmp);
+                        jTabbedPane1.setEnabledAt(1, true);
+                        for (SimulacionDias self: obj.simulacion) {
+                            jComboBox1.addItem("Q: " + String.valueOf(
+                                    self.cantidadPedido) +
+                                       " - PR:" +  String.valueOf(
+                                                self.puntoReorden));
+                        }
+                        jComboBox1.setSelectedIndex(0);
+                        jTabbedPane1.setSelectedIndex(1);
+            
+
+                        jFormattedTextField9.setText(String.valueOf(
+                                obj.getQmin()));
+                        jFormattedTextField10.setText(String.valueOf(
+                                obj.getQmax()));
+                         jFormattedTextField12.setText(String.valueOf(
+                                obj.getPrmin()));
+                        jFormattedTextField11.setText(String.valueOf(
+                                obj.getPrmax()));
+                        jFormattedTextField7.setText(String.valueOf(Math.round(
+                                obj.getCantidadPedidoOp() * 100.0) / 100.0));
+                        jFormattedTextField8.setText(String.valueOf(Math.round(
+                                obj.getPuntoReordenOp() * 100.0) / 100.0));
+                        jFormattedTextField57.setText(String.valueOf(
+                                Math.round(obj.getCostoTotalOp() * 100.0) / 
+                                        100.0));
+                        genTable();
+                        break;
+                    case 1:
+                        JOptionPane.showMessageDialog(null, "Las demandas"
+                            + " puestas son incorrectas.", "Error de "
                                     + "probabilidades", 1);
+                        break;
+                    case 2:
+                        JOptionPane.showMessageDialog(null, "Los Tiempos de"
+                            + " entrega puestos son incorrectos.", "Error de "
+                                    + "probabilidades", 1);
+                        break;
+                    case 3:
+                        JOptionPane.showMessageDialog(null, "Los Tiempos de"
+                            + " espera puestos son incorrectos.", "Error de "
+                                    + "probabilidades", 1);
+                        break;
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Los valores iniciales no "
@@ -1071,7 +1097,15 @@ public class Panel extends javax.swing.JFrame {
         jPanel2.setVisible(false);
         jScrollPane1.setVisible(false);
         jTabbedPane1.setSelectedIndex(0);
+        modelDemanda = new DefaultListModel();
+        modelTiCliente = new DefaultListModel();
+        modelTiEntrega = new DefaultListModel();
+        obj.aleatorio.limpiar();
+        jList1.setModel(modelDemanda);
+        jList2.setModel(modelTiEntrega);
+        jList3.setModel(modelTiCliente);
         pack();
+        
         for(Component c : jPanel5.getComponents()){
             if(c instanceof JFormattedTextField){
                 JFormattedTextField f = (JFormattedTextField) c;
@@ -1114,28 +1148,109 @@ public class Panel extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jFormattedTextField6ActionPerformed
 
-    private void jFormattedTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField14ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField14ActionPerformed
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+       try {
+           readFile();
+       } catch (FileNotFoundException ex) {
+           Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+       }
+    }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        if (!jScrollPane1.isVisible()) {
-            jScrollPane1.setVisible(true);
-            jButton5.setText("Ocultar Tabla");
-        } else {
-            jScrollPane1.setVisible(false);
-            jButton5.setText("Mostrar Tabla");
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+         try {
+           writeFile();        // TODO add your handling code here:
+       } catch (IOException ex) {
+           Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
+       }
+    }//GEN-LAST:event_jButton8ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+          int i = jList1.getSelectedIndex();
+          modelDemanda.removeElementAt(i);
+          jList1.setModel(modelDemanda);
+          jFormattedTextField13.requestFocus();
+          obj.aleatorio.Demanda.remove(i);
+    }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        
+        if (!jFormattedTextField14.getText().isEmpty()){
+            if (obj.aleatorio.insDemanda(Math.abs(Integer.valueOf(
+                        jFormattedTextField13.getText())), Math.abs(
+                                Float.valueOf(
+                                    jFormattedTextField14.getText()))) == 0) {
+                modelDemanda.addElement(jFormattedTextField13.getText() + 
+                    " -- " + jFormattedTextField14.getText() + "%");
+                jList1.setModel(modelDemanda);
+            }
         }
-        pack();
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jFormattedTextField13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField13ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jFormattedTextField13ActionPerformed
 
-    private void jFormattedTextField23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField23ActionPerformed
+    private void jFormattedTextField14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField14ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jFormattedTextField23ActionPerformed
+    }//GEN-LAST:event_jFormattedTextField14ActionPerformed
+
+    private void jFormattedTextField15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField15ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField15ActionPerformed
+
+    private void jFormattedTextField16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField16ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField16ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        if (!jFormattedTextField14.getText().isEmpty()){
+            if (obj.aleatorio.insEspEntrega(Math.abs(Integer.valueOf(
+                        jFormattedTextField16.getText())), Math.abs(
+                                Float.valueOf(
+                                    jFormattedTextField15.getText()))) == 0) {
+                modelTiEntrega.addElement(jFormattedTextField16.getText() + 
+                    " -- " + jFormattedTextField15.getText() + "%");
+                jList2.setModel(modelTiEntrega);
+            }
+        }
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+          int i = jList2.getSelectedIndex();
+          modelTiEntrega.removeElementAt(i);
+          jList2.setModel(modelTiEntrega);
+          jFormattedTextField13.requestFocus();
+          obj.aleatorio.TiempoEntrega.remove(i);
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jFormattedTextField17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField17ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField17ActionPerformed
+
+    private void jFormattedTextField18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField18ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jFormattedTextField18ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        if (!jFormattedTextField14.getText().isEmpty()){
+            if (obj.aleatorio.insEspCliente(Math.abs(Integer.valueOf(
+                        jFormattedTextField13.getText())), Math.abs(
+                                Float.valueOf(
+                                    jFormattedTextField14.getText()))) == 0) {
+                modelTiCliente.addElement(jFormattedTextField13.getText() + 
+                    " -- " + jFormattedTextField14.getText() + "%");
+                jList3.setModel(modelTiCliente);
+            }
+        }
+    }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        int i = jList3.getSelectedIndex();
+          modelTiCliente.removeElementAt(i);
+          jList3.setModel(modelTiCliente);
+          jFormattedTextField13.requestFocus();
+          obj.aleatorio.TiempoCliente.remove(i);
+    }//GEN-LAST:event_jButton14ActionPerformed
     
     /**
      * @param args the command line arguments
@@ -1180,16 +1295,16 @@ public class Panel extends javax.swing.JFrame {
         int tmp = jComboBox1.getSelectedIndex();
         if (tmp == -1) {tmp = 0;}
         
-        jFormattedTextField54.setText(String.valueOf(obj.simulacion.get(
-                tmp).getCostoOrdenes()));
-        jFormattedTextField53.setText(String.valueOf(obj.simulacion.get(
-                tmp).getCostoInv()));
-        jFormattedTextField55.setText(String.valueOf(obj.simulacion.get(
-                tmp).getCostoPerdidas()));
-        jFormattedTextField56.setText(String.valueOf(obj.simulacion.get(
-                tmp).getCostoTotal()));
+        jFormattedTextField54.setText(String.valueOf(Math.round(
+                obj.simulacion.get( tmp).getCostoOrdenes() * 100.0) / 100.0));
+        jFormattedTextField53.setText(String.valueOf(Math.round(
+                obj.simulacion.get(tmp).getCostoInv() * 100.0) / 100.0));
+        jFormattedTextField55.setText(String.valueOf(Math.round(
+                obj.simulacion.get(tmp).getCostoPerdidas() * 100.0) / 100.0));
+        jFormattedTextField56.setText(String.valueOf(Math.round(
+                obj.simulacion.get( tmp).getCostoTotal() * 100.0) / 100.0));
         
-        for (Integer[] self: obj.simulacion.get(tmp).simDia) {   
+        for (Integer[] self: obj.simulacion.get(tmp).simDia) {  
             model.addRow(new Object[]{self[0], 
                 self[1], self[2], self[3], self[4], self[5], self[6],self[7], 
                     self[8], self[9], self[10], self[11]});
@@ -1197,10 +1312,194 @@ public class Panel extends javax.swing.JFrame {
         pack();
     }
     
+    public void readFile () throws FileNotFoundException  {
+        obj.aleatorio.limpiar();
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "Text File","txt");
+        chooser.setFileFilter(filter);
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle("Leer archivo");
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+
+    if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+      System.out.println("getCurrentDirectory(): " + chooser.getCurrentDirectory());
+      System.out.println("getSelectedFile() : " + chooser.getSelectedFile());
+      
+        Scanner scanner = new Scanner(chooser.getSelectedFile());
+        String water = scanner.nextLine();
+        if (!water.equals("Java Inventory Simulator - Scalisi, Jose")) {
+            JOptionPane.showMessageDialog(null, "Archivo tiene mal formato.", 
+                    "Error de archivo", 1);
+        } else {
+            outerloop:
+            while (scanner.hasNextLine()) {
+                String[] tokens = scanner.nextLine().split(" ");
+            
+                switch (tokens[0]) {
+                    case "Dias:":   
+                        jFormattedTextField6.setText(tokens[1]);
+                        break;
+                    case "InvInic:":
+                        jFormattedTextField5.setText(tokens[1]);
+                        break;
+                    case "CostOrden:":
+                        jFormattedTextField2.setText(tokens[1]);
+                        break;
+                    case "CostInv:":
+                        jFormattedTextField1.setText(tokens[1]);
+                        break;
+                    case "CostFalConEsp:":
+                        jFormattedTextField3.setText(tokens[1]);
+                        break;
+                    case "CostFalSinnEsp:":
+                        jFormattedTextField4.setText(tokens[1]);
+                        break;
+                    case "Demanda:":
+                        modelDemanda = new DefaultListModel();
+                        while (scanner.hasNextLine()) {
+                            String[] posibl = scanner.nextLine().split(" ");
+                            if (posibl[0].equals("+")) {break;}
+                            System.out.println(posibl[0]);
+                            if (obj.aleatorio.insDemanda(Math.abs(
+                                    Integer.valueOf( posibl[0])), Math.abs(
+                                            Float.valueOf(posibl[1]))) == 0){
+                                modelDemanda.addElement( String.valueOf(
+                                        Math.abs(Integer.valueOf(posibl[0]))) 
+                                                + " -- " + String.valueOf(
+                                                    Math.abs(Float.valueOf(
+                                                            posibl[1]))) + "%");
+                                jList1.setModel(modelDemanda);
+                            }
+                        }
+                        break;
+                    case "TiempoCliente:":
+                        modelTiCliente = new DefaultListModel();
+                        while (scanner.hasNextLine()) {
+                            String[] posibl = scanner.nextLine().split(" ");
+                            if (posibl[0].contains("+")) {break;}
+                            if (obj.aleatorio.insEspCliente(Math.abs(
+                                    Integer.valueOf(posibl[0])), Math.abs(
+                                        Float.valueOf(posibl[1]))) == 0){
+                                modelTiCliente.addElement( String.valueOf(
+                                        Math.abs(Integer.valueOf(posibl[0]))) 
+                                        + " -- " + String.valueOf(Math.abs(
+                                                Float.valueOf(posibl[1]))) 
+                                                    + "%");
+                                jList3.setModel(modelTiCliente);
+                            }
+                        }
+                        break;
+                    case "TiempoEntrega:":
+                        modelTiEntrega = new DefaultListModel();
+                        while (scanner.hasNextLine()) {
+                            String[] posibl = scanner.nextLine().split(" ");
+                            if (posibl[0].contains("+")) {break;}
+                            if (obj.aleatorio.insEspEntrega(Math.abs(
+                                    Integer.valueOf(posibl[0])), Math.abs(
+                                            Float.valueOf(posibl[1]))) == 0){
+                                modelTiEntrega.addElement(String.valueOf(
+                                        Math.abs(Integer.valueOf(posibl[0]))) 
+                                        + " -- " + String.valueOf(Math.abs(
+                                                Float.valueOf(posibl[1]))) 
+                                                    + "%");
+                                jList2.setModel(modelTiEntrega);
+                            }
+                        }
+                   
+                        break;
+                    default: 
+                        JOptionPane.showMessageDialog(
+                                null, "Archivo tiene mal formato.", 
+                                    "Error de archivo", 1);
+                        break outerloop;
+                }
+            }
+        }
+        scanner.close();
+        
+    } else {
+      System.out.println("No Selection ");
+    }
+    }
+    
+    public void writeFile () throws FileNotFoundException, IOException {
+        JFileChooser chooser = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter(
+                "Text File","txt");
+        chooser.setFileFilter(filter);
+        chooser.setCurrentDirectory(new java.io.File("."));
+        chooser.setDialogTitle("Crear archivo");
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.setAcceptAllFileFilterUsed(false);
+
+    if (chooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION) {
+    try ( //Con la selecion del filechooser, se guarda el archivo.
+        FileOutputStream fileOut = new FileOutputStream(
+            chooser.getSelectedFile())) {
+            OutputStreamWriter osw = new OutputStreamWriter(fileOut);
+            osw.write("Java Inventory Simulator - Scalisi, Jose");
+            osw.write(System.getProperty( "line.separator" ));
+            osw.write("Dias: " + jFormattedTextField6.getText());
+            osw.write(System.getProperty( "line.separator" ));
+            osw.write("InvInic: " + jFormattedTextField5.getText());
+            osw.write(System.getProperty( "line.separator" ));
+            osw.write("CostOrden: " + jFormattedTextField2.getText());
+            osw.write(System.getProperty( "line.separator" ));
+            osw.write("CostInv: " + jFormattedTextField1.getText());
+            osw.write(System.getProperty( "line.separator" ));
+            osw.write("CostFalConEsp: " + jFormattedTextField3.getText());
+            osw.write(System.getProperty( "line.separator" ));
+            osw.write("CostFalSinnEsp: " + jFormattedTextField4.getText());
+            osw.write(System.getProperty( "line.separator" ));
+            osw.write("Demanda:");
+            osw.write(System.getProperty( "line.separator" ));
+            for (Integer[] object : obj.aleatorio.getDemanda()) {
+                osw.write(String.valueOf(object[0]) + " " + 
+                    String.valueOf(object[1]));
+                osw.write(System.getProperty( "line.separator" ));
+            }
+            osw.write("+");
+            osw.write(System.getProperty( "line.separator" ));
+            osw.write("TiempoCliente:");
+            osw.write(System.getProperty( "line.separator" ));
+            for (Integer[] object : obj.aleatorio.getTiempoCliente()) {
+                osw.write(String.valueOf(object[0]) + " " + 
+                    String.valueOf(object[1]));
+                osw.write(System.getProperty( "line.separator" ));
+            }
+            osw.write("+");
+            osw.write(System.getProperty( "line.separator" ));
+            osw.write("TiempoEntrega:");
+            osw.write(System.getProperty( "line.separator" ));
+            for (Integer[] object : obj.aleatorio.TiempoEntrega) {
+                osw.write(String.valueOf(object[0]) + " " + 
+                    String.valueOf(object[1]));
+                osw.write(System.getProperty( "line.separator" ));
+            }
+            osw.write("+");
+            osw.close();
+            fileOut.close();
+        }
+    } else {
+      System.out.println("No Selection ");
+    }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
+    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JCheckBox jCheckBox2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JFormattedTextField jFormattedTextField10;
@@ -1212,44 +1511,10 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jFormattedTextField16;
     private javax.swing.JFormattedTextField jFormattedTextField17;
     private javax.swing.JFormattedTextField jFormattedTextField18;
-    private javax.swing.JFormattedTextField jFormattedTextField19;
     private javax.swing.JFormattedTextField jFormattedTextField2;
-    private javax.swing.JFormattedTextField jFormattedTextField20;
-    private javax.swing.JFormattedTextField jFormattedTextField21;
-    private javax.swing.JFormattedTextField jFormattedTextField22;
-    private javax.swing.JFormattedTextField jFormattedTextField23;
-    private javax.swing.JFormattedTextField jFormattedTextField24;
-    private javax.swing.JFormattedTextField jFormattedTextField25;
-    private javax.swing.JFormattedTextField jFormattedTextField26;
-    private javax.swing.JFormattedTextField jFormattedTextField27;
-    private javax.swing.JFormattedTextField jFormattedTextField28;
-    private javax.swing.JFormattedTextField jFormattedTextField29;
     private javax.swing.JFormattedTextField jFormattedTextField3;
-    private javax.swing.JFormattedTextField jFormattedTextField30;
-    private javax.swing.JFormattedTextField jFormattedTextField31;
-    private javax.swing.JFormattedTextField jFormattedTextField32;
-    private javax.swing.JFormattedTextField jFormattedTextField33;
-    private javax.swing.JFormattedTextField jFormattedTextField34;
-    private javax.swing.JFormattedTextField jFormattedTextField35;
-    private javax.swing.JFormattedTextField jFormattedTextField36;
-    private javax.swing.JFormattedTextField jFormattedTextField37;
-    private javax.swing.JFormattedTextField jFormattedTextField38;
-    private javax.swing.JFormattedTextField jFormattedTextField39;
     private javax.swing.JFormattedTextField jFormattedTextField4;
-    private javax.swing.JFormattedTextField jFormattedTextField40;
-    private javax.swing.JFormattedTextField jFormattedTextField41;
-    private javax.swing.JFormattedTextField jFormattedTextField42;
-    private javax.swing.JFormattedTextField jFormattedTextField43;
-    private javax.swing.JFormattedTextField jFormattedTextField44;
-    private javax.swing.JFormattedTextField jFormattedTextField45;
-    private javax.swing.JFormattedTextField jFormattedTextField46;
-    private javax.swing.JFormattedTextField jFormattedTextField47;
-    private javax.swing.JFormattedTextField jFormattedTextField48;
-    private javax.swing.JFormattedTextField jFormattedTextField49;
     private javax.swing.JFormattedTextField jFormattedTextField5;
-    private javax.swing.JFormattedTextField jFormattedTextField50;
-    private javax.swing.JFormattedTextField jFormattedTextField51;
-    private javax.swing.JFormattedTextField jFormattedTextField52;
     private javax.swing.JFormattedTextField jFormattedTextField53;
     private javax.swing.JFormattedTextField jFormattedTextField54;
     private javax.swing.JFormattedTextField jFormattedTextField55;
@@ -1260,6 +1525,7 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JFormattedTextField jFormattedTextField8;
     private javax.swing.JFormattedTextField jFormattedTextField9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
@@ -1276,18 +1542,30 @@ public class Panel extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel23;
     private javax.swing.JLabel jLabel24;
     private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel27;
+    private javax.swing.JLabel jLabel28;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel33;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jList2;
+    private javax.swing.JList<String> jList3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JPanel jPanel6;
+    private javax.swing.JPanel jPanel7;
+    private javax.swing.JPanel jPanel8;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables

@@ -25,12 +25,12 @@ public class Simulacion {
 public ArrayList<SimulacionDias> simulacion;
 public Random aleatorio;
     
-private final int invInicial; // Inventario inicial
-private final int dias; // Cantidad de días a simular
-private final double costoInvent; //Costo de inventario = $ unidad/año
-private final double costoOrden; //Costo de ordenar = $ / orden
-private final double costoConEspera; //Costo de faltante con espera de cliente 
-private final double costoSinEspera; //Costo de faltante sin espera de cliente
+private int invInicial; // Inventario inicial
+private int dias; // Cantidad de días a simular
+private double costoInvent; //Costo de inventario = $ unidad/año
+private double costoOrden; //Costo de ordenar = $ / orden
+private double costoConEspera; //Costo de faltante con espera de cliente 
+private double costoSinEspera; //Costo de faltante sin espera de cliente
 private int puntoReordenOp; // Punto de reorden optimo de la simulacion
 private int cantidadPedidoOp; // Cantidad de pedido optimo de la simulacion
 private double costoTotalOp; // Costo total optimo de la simulacion
@@ -51,7 +51,6 @@ private int qmax; // Cantidad de pedido maximo de la simulacion
         this.costoSinEspera = 50;
         this.aleatorio = new Random(13, 31);
         this.simulacion = new ArrayList<>();
-        this.costoTotalOp = 999999999;
     }
 
     public Simulacion(int InvInicial, int dias, double CostoInvent, 
@@ -64,22 +63,23 @@ private int qmax; // Cantidad de pedido maximo de la simulacion
         this.costoSinEspera = CostoSinEspera;
         this.aleatorio = new Random(13, 31);
         this.simulacion = new ArrayList<>();
-        this.costoTotalOp = 999999999;
-        this.prmin = 999999999;
-        this.qmin = 999999999;
-        this.prmax = 0;
-        this.qmax = 0;
     }
     
     // Itera todas las combinaciones de Q y PR, y obtiene sus valores optimos
     public void iterarDias() {
+        simulacion.clear();
         int i = 0;
+        costoTotalOp = 999999999;
+        prmin = 999999999;
+        qmin = 999999999;
+        prmax = 0;
+        qmax = 0;
 
         for (Integer[] demandas: aleatorio.getDemanda()) {
             for (Integer[] tiempo: aleatorio.getTiempoEntrega()){
                 double Q = Math.sqrt((2 * costoOrden * demandas[0] * 365) / 
                         (costoInvent));
-                int PR = demandas[0] * tiempo[0];
+                int PR = Math.round(demandas[0] * tiempo[0]);
                 
                 if (PR < prmin) {
                     prmin = PR;
@@ -87,7 +87,6 @@ private int qmax; // Cantidad de pedido maximo de la simulacion
                 if (PR > prmax) {
                     prmax = PR;
                 }
-                
                 if (Q < qmin) {
                     qmin = (int)Q;
                 }
@@ -109,6 +108,32 @@ private int qmax; // Cantidad de pedido maximo de la simulacion
             }
         }     
     }
+
+    public void setInvInicial(int invInicial) {
+        this.invInicial = invInicial;
+    }
+
+    public void setDias(int dias) {
+        this.dias = dias;
+    }
+
+    public void setCostoInvent(double costoInvent) {
+        this.costoInvent = costoInvent;
+    }
+
+    public void setCostoOrden(double costoOrden) {
+        this.costoOrden = costoOrden;
+    }
+
+    public void setCostoConEspera(double costoConEspera) {
+        this.costoConEspera = costoConEspera;
+    }
+
+    public void setCostoSinEspera(double costoSinEspera) {
+        this.costoSinEspera = costoSinEspera;
+    }
+    
+    
 
     public int getPrmin() {
         return prmin;

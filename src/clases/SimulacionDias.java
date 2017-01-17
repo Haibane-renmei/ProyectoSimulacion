@@ -167,6 +167,7 @@ private final int dias; // Dias a simular
         
         costoTotal = costoInv + costoOrdenes + costoPerdidas;  
     }
+    
 
     public int getPuntoReorden() {
         return puntoReorden;

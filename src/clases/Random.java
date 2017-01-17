@@ -32,11 +32,11 @@ public class Random {
     private static int CONSTANTE_A;   // Constante 1 de formula
     private static int CONSTANTE_B;   // Constante 2 de formula
     public  ArrayList <Integer[]> Demanda; //La demanda diaria y  
-    //su probabilidad
+        //su probabilidad
     public  ArrayList <Integer[]> TiempoEntrega; //Tiempo de entrega y 
-    //su probabilidad
+        //su probabilidad
     public  ArrayList <Integer[]> TiempoCliente; //El tiempo de espera  
-    //del cliente por el artículo y su probabilidad
+        //del cliente por el artículo y su probabilidad
     
     // Inicializador
 
@@ -59,46 +59,55 @@ public class Random {
     }
     
     // Inserta una demanda y su posibilidad
-    public void insDemanda(int a, float b) {
+    // Verifica que la posibilidad no sea 0 y que al agregar no supere el 100%
+    public int insDemanda(int a, float b) {
         Integer[] temp = new Integer[2];
         temp[0] = a;
-        if (b <= 1) {
+        if (b < 1) {
             temp[1] = Math.round(b * 100);
         } else {
             temp[1] = (int)b;
         }
-        if (temp[1] != 0 && temp[1] <= 100) {
-        Demanda.add(temp);
+        if (temp[1] > 0 && temp[1] <= 100 && esMenor(1, temp[1]) == 0) {
+            Demanda.add(temp);
+            return 0;
         }
+        return 1;
     }
     
     // Inserta un tiempo espera de cliente y su posibilidad
-    public void insEspCliente(int a, float b) {
+    // Verifica que la posibilidad no sea 0 y que al agregar no supere el 100%
+    public int insEspCliente(int a, float b) {
         Integer[] temp = new Integer[2];
         temp[0] = a;
-        if (b <= 1) {
+        if (b < 1) {
             temp[1] = Math.round(b * 100);
         } else {
             temp[1] = (int)b;
         }
         
-        if (temp[1] != 0 && temp[1] <= 100) {
-        TiempoCliente.add(temp);
+        if (temp[1] > 0 && temp[1] <= 100 && esMenor(3, temp[1]) == 0) {
+            TiempoCliente.add(temp);
+            return 0;
         }
+        return 1;
     }
     
     // Inserta un tiempo de espera de entrega y su posibilidad
-    public void insEspEntrega(int a, float b) {
+    // Verifica que la posibilidad no sea 0 y que al agregar no supere el 100%
+    public int insEspEntrega(int a, float b) {
         Integer[] temp = new Integer[2];
         temp[0] = a;
-        if (b <= 1) {
+        if (b < 1) {
             temp[1] = Math.round(b * 100);
         } else {
             temp[1] = (int)b;
         }
-        if (temp[1] != 0 && temp[1] <= 100) {
-        TiempoEntrega.add(temp);
+        if (temp[1] > 0 && temp[1] <= 100 && esMenor(2, temp[1]) == 0) {
+            TiempoEntrega.add(temp);
+            return 0;
         }
+        return 1;
     }
     
     // Devuelve una demanda de acuerdo a su probabilidad
@@ -167,28 +176,64 @@ public class Random {
     
     // Verifica si todas las vaiables son correctas.
     // Cada variable de probabilidad debe sumar 100%
-    public boolean esCorrecto() {
-        Integer[] check =  new Integer[3];
-        Arrays.fill(check, 0);
-        
+    public byte esCorrecto() {
+        int check = 0;
         for (Integer[] object: Demanda) {
-            check[0] = check[0] + object[1];
+            check = check + object[1];
         }
-        
+        if (check != 100){
+                return 1;
+        }
+        check = 0;
         for (Integer[] object: TiempoEntrega) {
-            check[1] = check[1] + object[1];
+            check = check + object[1];
         }
+        if (check != 100){
+                return 2;
+        }
+        check = 0;
+        for (Integer[] object: TiempoCliente) {
+            check = check + object[1];
+        }
+        if (check != 100){
+                return 3;
+        }
+        return 0;
+    }
+    
+        // Verifica si una tabla no supera el 100% de posibilidad.
+        public byte esMenor(int i, int j) {
+            int check = 0;
+            switch (i) {
+                case 1:
+                    for (Integer[] object: Demanda) {
+                        check = check + object[1];
+                        if (check + j > 100){
+                            return 1;}
+                    }
+                break;
+                case 2:
+                    for (Integer[] object: TiempoEntrega) {
+                        check = check + object[1];
+                        if (check + j > 100) 
+                            return 1;
+                }
+                break;
+                case 3:
+                    for (Integer[] object: TiempoCliente) {
+                        check = check + object[1];
+                        if (check + j > 100)
+                            return 1;
+                }
+                break;
+                }
+        return 0;
+    }
         
-        for (Integer[] object: TiempoEntrega) {
-            check[2] = check[2] + object[1];
-        }
-        
-        for (Integer object: check) {
-            if (object != 100) {
-                return false;
-            }
-        }
-        return true;
+    public void limpiar() {
+        Demanda.clear();
+        TiempoEntrega.clear();
+        TiempoCliente.clear();
     }
     
     
