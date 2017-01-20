@@ -832,22 +832,16 @@ public class Panel extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(jPanel1Layout.createSequentialGroup()
+                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
-                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel12)
-                                    .add(jLabel14)
-                                    .add(jLabel11)
-                                    .add(jLabel2))
-                                .add(32, 32, 32))
-                            .add(jPanel1Layout.createSequentialGroup()
-                                .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jLabel1)
-                                    .add(jLabel13))
-                                .add(63, 63, 63)))
+                            .add(jLabel12)
+                            .add(jLabel14)
+                            .add(jLabel11)
+                            .add(jLabel2)
+                            .add(jLabel13)
+                            .add(jLabel1))
+                        .add(32, 32, 32)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                             .add(jFormattedTextField1)
                             .add(jFormattedTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
@@ -855,17 +849,17 @@ public class Panel extends javax.swing.JFrame {
                             .add(jFormattedTextField4)
                             .add(jFormattedTextField5)
                             .add(jFormattedTextField6)))
-                    .add(jPanel1Layout.createSequentialGroup()
-                        .add(jCheckBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 94, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                    .add(org.jdesktop.layout.GroupLayout.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .add(jCheckBox2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 110, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                         .add(18, 18, 18)
                         .add(jPanel1Layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(jPanel1Layout.createSequentialGroup()
                                 .add(jButton6, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(18, 18, 18)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jButton4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                             .add(jPanel1Layout.createSequentialGroup()
                                 .add(jButton7, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                .add(18, 18, 18)
+                                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                                 .add(jButton8, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 82, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                 .add(jTabbedPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 785, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -1232,13 +1226,13 @@ public class Panel extends javax.swing.JFrame {
     }//GEN-LAST:event_jFormattedTextField18ActionPerformed
 
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
-        if (!jFormattedTextField14.getText().isEmpty()){
+        if (!jFormattedTextField17.getText().isEmpty()){
             if (obj.aleatorio.insEspCliente(Math.abs(Integer.valueOf(
-                        jFormattedTextField13.getText())), Math.abs(
+                        jFormattedTextField18.getText())), Math.abs(
                                 Float.valueOf(
-                                    jFormattedTextField14.getText()))) == 0) {
-                modelTiCliente.addElement(jFormattedTextField13.getText() + 
-                    " -- " + jFormattedTextField14.getText() + "%");
+                                    jFormattedTextField17.getText()))) == 0) {
+                modelTiCliente.addElement(jFormattedTextField18.getText() + 
+                    " -- " + jFormattedTextField17.getText() + "%");
                 jList3.setModel(modelTiCliente);
             }
         }
@@ -1353,7 +1347,7 @@ public class Panel extends javax.swing.JFrame {
                     case "CostFalConEsp:":
                         jFormattedTextField3.setText(tokens[1]);
                         break;
-                    case "CostFalSinnEsp:":
+                    case "CostFalSinEsp:":
                         jFormattedTextField4.setText(tokens[1]);
                         break;
                     case "Demanda:":
@@ -1371,23 +1365,6 @@ public class Panel extends javax.swing.JFrame {
                                                     Math.abs(Float.valueOf(
                                                             posibl[1]))) + "%");
                                 jList1.setModel(modelDemanda);
-                            }
-                        }
-                        break;
-                    case "TiempoCliente:":
-                        modelTiCliente = new DefaultListModel();
-                        while (scanner.hasNextLine()) {
-                            String[] posibl = scanner.nextLine().split(" ");
-                            if (posibl[0].contains("+")) {break;}
-                            if (obj.aleatorio.insEspCliente(Math.abs(
-                                    Integer.valueOf(posibl[0])), Math.abs(
-                                        Float.valueOf(posibl[1]))) == 0){
-                                modelTiCliente.addElement( String.valueOf(
-                                        Math.abs(Integer.valueOf(posibl[0]))) 
-                                        + " -- " + String.valueOf(Math.abs(
-                                                Float.valueOf(posibl[1]))) 
-                                                    + "%");
-                                jList3.setModel(modelTiCliente);
                             }
                         }
                         break;
@@ -1409,6 +1386,25 @@ public class Panel extends javax.swing.JFrame {
                         }
                    
                         break;
+                        
+                    case "TiempoCliente:":
+                        modelTiCliente = new DefaultListModel();
+                        while (scanner.hasNextLine()) {
+                            String[] posibl = scanner.nextLine().split(" ");
+                            if (posibl[0].contains("+")) {break;}
+                            if (obj.aleatorio.insEspCliente(Math.abs(
+                                    Integer.valueOf(posibl[0])), Math.abs(
+                                        Float.valueOf(posibl[1]))) == 0){
+                                modelTiCliente.addElement( String.valueOf(
+                                        Math.abs(Integer.valueOf(posibl[0]))) 
+                                        + " -- " + String.valueOf(Math.abs(
+                                                Float.valueOf(posibl[1]))) 
+                                                    + "%");
+                                jList3.setModel(modelTiCliente);
+                            }
+                        }
+                        break;
+                    
                     default: 
                         JOptionPane.showMessageDialog(
                                 null, "Archivo tiene mal formato.", 
@@ -1451,7 +1447,7 @@ public class Panel extends javax.swing.JFrame {
             osw.write(System.getProperty( "line.separator" ));
             osw.write("CostFalConEsp: " + jFormattedTextField3.getText());
             osw.write(System.getProperty( "line.separator" ));
-            osw.write("CostFalSinnEsp: " + jFormattedTextField4.getText());
+            osw.write("CostFalSinEsp: " + jFormattedTextField4.getText());
             osw.write(System.getProperty( "line.separator" ));
             osw.write("Demanda:");
             osw.write(System.getProperty( "line.separator" ));

@@ -140,7 +140,7 @@ public class Random {
         temp = 0;
         regla = new Integer[100];
         
-        for (Integer[] object: TiempoEntrega) {
+        for (Integer[] object: TiempoCliente) {
             limite = temp;
             while (temp < limite + object[1]) {
                 regla[temp++] = object[0];
