@@ -1143,8 +1143,21 @@ public class Panel extends javax.swing.JFrame {
     }//GEN-LAST:event_jFormattedTextField6ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-       try {
-           readFile();
+        
+        try {
+            obj.aleatorio.limpiar();
+            modelDemanda = new DefaultListModel();
+            modelTiCliente = new DefaultListModel();
+            modelTiEntrega = new DefaultListModel();
+            jList1.setModel(modelDemanda);
+            jList2.setModel(modelTiEntrega);
+            jList3.setModel(modelTiCliente);
+            jTabbedPane1.setEnabledAt(1, false);
+            jPanel2.setVisible(false);
+            jScrollPane1.setVisible(false);
+            jTabbedPane1.setSelectedIndex(0);
+            readFile();
+            pack();
        } catch (FileNotFoundException ex) {
            Logger.getLogger(Panel.class.getName()).log(Level.SEVERE, null, ex);
        }
